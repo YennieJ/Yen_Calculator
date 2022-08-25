@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CalculatorDisplay from "./components/calculatorDisplay/calculatorDisplay";
 import CalculatorKey from "./components/calculatorKey/calculatorKey";
 
 const Calculator = () => {
@@ -79,7 +80,6 @@ const Calculator = () => {
       const currentValue = value || 0;
 
       const newValue = CalculatorOperations[operator](currentValue, inputValue);
-      console.log(operator);
 
       setValue(newValue);
       setDisplayValue(String(newValue));
@@ -90,97 +90,95 @@ const Calculator = () => {
 
   return (
     <>
-      <h1>{`value: ${value}`}</h1>
-      <h1>{`displayValue: ${displayValue}`}</h1>
-      <h1>{`operator: ${operator}`}</h1>
-      <h1>{`waitingForOperand: ${waitingForOperand}`}</h1>
-
-      <div className="calculator-keypad">
-        <div className="input-keys">
-          <div className="function-keys">
+      <div className="calculator">
+        <CalculatorDisplay value={displayValue} />
+        <div className="calculator-keypad">
+          <div className="input-keys">
+            <div className="function-keys">
+              <CalculatorKey
+                className="key-clear"
+                onPress={() => (clearDisplay ? clearDisplay() : clearAll())}
+              >
+                {clearText}
+              </CalculatorKey>
+              <CalculatorKey className="key-sign" onPress={() => toggleSign()}>
+                ±
+              </CalculatorKey>
+              <CalculatorKey
+                className="key-percent"
+                onPress={() => inputPercent()}
+              >
+                %
+              </CalculatorKey>
+            </div>
+            <div className="digit-keys">
+              <CalculatorKey className="key-0" onPress={() => inputDigit(0)}>
+                0
+              </CalculatorKey>
+              <CalculatorKey className="key-dot" onPress={() => inputDot()}>
+                ●
+              </CalculatorKey>
+              <CalculatorKey className="key-1" onPress={() => inputDigit(1)}>
+                1
+              </CalculatorKey>
+              <CalculatorKey className="key-2" onPress={() => inputDigit(2)}>
+                2
+              </CalculatorKey>
+              <CalculatorKey className="key-3" onPress={() => inputDigit(3)}>
+                3
+              </CalculatorKey>
+              <CalculatorKey className="key-4" onPress={() => inputDigit(4)}>
+                4
+              </CalculatorKey>
+              <CalculatorKey className="key-5" onPress={() => inputDigit(5)}>
+                5
+              </CalculatorKey>
+              <CalculatorKey className="key-6" onPress={() => inputDigit(6)}>
+                6
+              </CalculatorKey>
+              <CalculatorKey className="key-7" onPress={() => inputDigit(7)}>
+                7
+              </CalculatorKey>
+              <CalculatorKey className="key-8" onPress={() => inputDigit(8)}>
+                8
+              </CalculatorKey>
+              <CalculatorKey className="key-9" onPress={() => inputDigit(9)}>
+                9
+              </CalculatorKey>
+            </div>
+          </div>
+          <div className="operator-keys">
             <CalculatorKey
-              className="key-clear"
-              onPress={() => (clearDisplay ? clearDisplay() : clearAll())}
+              className="key-divide"
+              onPress={() => performOperation("/")}
             >
-              {clearText}
-            </CalculatorKey>
-            <CalculatorKey className="key-sign" onPress={() => toggleSign()}>
-              ±
+              /
             </CalculatorKey>
             <CalculatorKey
-              className="key-percent"
-              onPress={() => inputPercent()}
+              className="key-multiply"
+              onPress={() => performOperation("*")}
             >
-              %
+              ×
+            </CalculatorKey>
+            <CalculatorKey
+              className="key-subtract"
+              onPress={() => performOperation("-")}
+            >
+              −
+            </CalculatorKey>
+            <CalculatorKey
+              className="key-add"
+              onPress={() => performOperation("+")}
+            >
+              +
+            </CalculatorKey>
+            <CalculatorKey
+              className="key-equals"
+              onPress={() => performOperation("=")}
+            >
+              =
             </CalculatorKey>
           </div>
-          <div className="digit-keys">
-            <CalculatorKey className="key-0" onPress={() => inputDigit(0)}>
-              0
-            </CalculatorKey>
-            <CalculatorKey className="key-dot" onPress={() => inputDot()}>
-              ●
-            </CalculatorKey>
-            <CalculatorKey className="key-1" onPress={() => inputDigit(1)}>
-              1
-            </CalculatorKey>
-            <CalculatorKey className="key-2" onPress={() => inputDigit(2)}>
-              2
-            </CalculatorKey>
-            <CalculatorKey className="key-3" onPress={() => inputDigit(3)}>
-              3
-            </CalculatorKey>
-            <CalculatorKey className="key-4" onPress={() => inputDigit(4)}>
-              4
-            </CalculatorKey>
-            <CalculatorKey className="key-5" onPress={() => inputDigit(5)}>
-              5
-            </CalculatorKey>
-            <CalculatorKey className="key-6" onPress={() => inputDigit(6)}>
-              6
-            </CalculatorKey>
-            <CalculatorKey className="key-7" onPress={() => inputDigit(7)}>
-              7
-            </CalculatorKey>
-            <CalculatorKey className="key-8" onPress={() => inputDigit(8)}>
-              8
-            </CalculatorKey>
-            <CalculatorKey className="key-9" onPress={() => inputDigit(9)}>
-              9
-            </CalculatorKey>
-          </div>
-        </div>
-        <div className="operator-keys">
-          <CalculatorKey
-            className="key-divide"
-            onPress={() => performOperation("/")}
-          >
-            /
-          </CalculatorKey>
-          <CalculatorKey
-            className="key-multiply"
-            onPress={() => performOperation("*")}
-          >
-            ×
-          </CalculatorKey>
-          <CalculatorKey
-            className="key-subtract"
-            onPress={() => performOperation("-")}
-          >
-            −
-          </CalculatorKey>
-          <CalculatorKey
-            className="key-add"
-            onPress={() => performOperation("+")}
-          >
-            +
-          </CalculatorKey>
-          <CalculatorKey
-            className="key-equals"
-            onPress={() => performOperation("=")}
-          >
-            =
-          </CalculatorKey>
         </div>
       </div>
     </>
