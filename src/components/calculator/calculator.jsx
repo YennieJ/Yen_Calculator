@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CalculatorDisplay from "./components/calculatorDisplay/calculatorDisplay";
 import CalculatorKey from "./components/calculatorKey/calculatorKey";
 
@@ -29,6 +29,11 @@ const Calculator = () => {
 
   const clearDisplay = () => {
     setDisplayValue("0");
+  };
+
+  //delete
+  const clearLastChar = () => {
+    setDisplayValue(displayValue.substring(0, displayValue.length - 1) || "0");
   };
 
   const toggleSign = () => {
@@ -87,6 +92,43 @@ const Calculator = () => {
     setWaitingForOperand(true);
     setOperator(nextOperator);
   };
+  const handleKeyDown = (event) => {
+    let { key } = event;
+
+    if (key === "Enter") {
+      key = "=";
+    }
+    if (/\d/.test(key)) {
+      event.preventDefault();
+      inputDigit(parseInt(key, 10));
+    } else if (key in CalculatorOperations) {
+      event.preventDefault();
+      performOperation(key);
+    } else if (key === ".") {
+      event.preventDefault();
+      inputDot();
+    } else if (key === "%") {
+      event.preventDefault();
+      inputPercent();
+    } else if (key === "Backspace") {
+      event.preventDefault();
+      clearLastChar();
+    } else if (key === "Clear") {
+      event.preventDefault();
+      if (displayValue !== "0") {
+        clearDisplay();
+      } else {
+        clearAll();
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  });
 
   return (
     <>

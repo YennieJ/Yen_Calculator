@@ -15,7 +15,7 @@ const CalculatorDisplay = ({ value, ...props }) => {
 
   return (
     <div {...props} className="calculator-display">
-      {formattedValue}
+      <AutoScalingText>{formattedValue}</AutoScalingText>
     </div>
   );
 };

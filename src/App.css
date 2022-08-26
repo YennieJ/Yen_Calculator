@@ -1,4 +1,4 @@
-/* html {
+html {
   box-sizing: border-box;
 }
 *,
@@ -143,4 +143,4 @@ button:active {
     rgba(252, 156, 23, 1) 0%,
     rgba(247, 126, 27, 1) 100%
   );
-} */
+}
